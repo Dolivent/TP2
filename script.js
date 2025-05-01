@@ -1,16 +1,16 @@
+// The element where we'll display the note
 const noteContentElement = document.getElementById('note-content');
 
 // --- Configuration ---
 const githubUsername = "Dolivent";
 const githubRepo = "TP2";
-const branchName = "main"; // Change to your branch name if different
 const noteFilePath = "notes/2025-W18-Example.md";
 // --- End Configuration ---
 
 // Construct the URL to fetch the raw Markdown file from GitHub
-const noteUrl = `https://raw.githubusercontent.com/${githubUsername}/${githubRepo}/${branchName}/${noteFilePath}`;
+const noteUrl = `https://raw.githubusercontent.com/${githubUsername}/${githubRepo}/main/${noteFilePath}`; // Fixed line
 
-console.log(`Fetching note from: ${noteUrl}`); // For debugging
+console.log(`Fetching note from: ${noteUrl}`); // Updated "Workspaceing" to "Fetching" for clarity
 
 // Fetch the Markdown content
 fetch(noteUrl)
@@ -18,16 +18,15 @@ fetch(noteUrl)
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return response.text(); // Get the response text (Markdown)
+        return response.text();
     })
     .then(markdownText => {
-        console.log("Markdown fetched successfully!"); // For debugging
-        // Use the marked library to convert Markdown to HTML
+        console.log("Markdown fetched successfully!");
         if (window.marked) {
-             noteContentElement.innerHTML = marked.parse(markdownText); // Use marked.parse()
+            noteContentElement.innerHTML = marked.parse(markdownText);
         } else {
-             console.error("Marked library not loaded!");
-             noteContentElement.textContent = "Error: Could not load Markdown parser.";
+            console.error("Marked library not loaded!");
+            noteContentElement.textContent = "Error: Could not load Markdown parser.";
         }
     })
     .catch(error => {
