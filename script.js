@@ -3,8 +3,8 @@ const noteContentElement = document.getElementById('note-content');
 
 // --- Configuration ---
 // CHANGE THESE to your GitHub username and repository name!
-const githubUsername = "dolivent";
-const githubRepo = "tp2";
+const githubUsername = "Dolivent";
+const githubRepo = "TP2";
 const noteFilePath = "notes/2025-W18-Example.md"; // Path to the note file in your repo
 // --- End Configuration ---
 
