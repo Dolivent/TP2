@@ -1,17 +1,16 @@
-// The element where we'll display the note
 const noteContentElement = document.getElementById('note-content');
 
 // --- Configuration ---
-// CHANGE THESE to your GitHub username and repository name!
 const githubUsername = "Dolivent";
 const githubRepo = "TP2";
-const noteFilePath = "notes/2025-W18-Example.md"; // Path to the note file in your repo
+const branchName = "main"; // Change to your branch name if different
+const noteFilePath = "notes/2025-W18-Example.md";
 // --- End Configuration ---
 
 // Construct the URL to fetch the raw Markdown file from GitHub
-const noteUrl = `https://raw.githubusercontent.com/<span class="math-inline">\{githubUsername\}/</span>{githubRepo}/main/${noteFilePath}`; // Use 'main' or 'master' depending on your branch
+const noteUrl = `https://raw.githubusercontent.com/${githubUsername}/${githubRepo}/${branchName}/${noteFilePath}`;
 
-console.log(`Workspaceing note from: ${noteUrl}`); // For debugging
+console.log(`Fetching note from: ${noteUrl}`); // For debugging
 
 // Fetch the Markdown content
 fetch(noteUrl)
@@ -24,7 +23,6 @@ fetch(noteUrl)
     .then(markdownText => {
         console.log("Markdown fetched successfully!"); // For debugging
         // Use the marked library to convert Markdown to HTML
-        // Ensure marked is loaded before this script runs (hence placing its script tag after ours or using defer/async appropriately, but simpler for now is just order)
         if (window.marked) {
              noteContentElement.innerHTML = marked.parse(markdownText); // Use marked.parse()
         } else {
