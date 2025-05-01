@@ -1,0 +1,47 @@
+backend:
+  name: github
+  repo: Dolivent/TP2
+  branch: main
+media_folder: "notes"  # Where images would go (not used yet)
+public_folder: "/notes"
+collections:
+  - name: "notes"
+    label: "Weekly Notes"
+    folder: "notes"
+    create: true
+    slug: "{{week}}"  # Filename based on week, e.g., "2025-W18"
+    fields:
+      - {label: "Week", name: "week", widget: "string", default: "2025-W18"}
+      - {label: "Summary", name: "summary", widget: "text"}
+      - label: "Monday"
+        name: "monday"
+        widget: "object"
+        fields:
+          - {label: "Date", name: "date", widget: "string", default: "2025-04-28"}
+          - {label: "EP", name: "ep", widget: "text"}
+          - {label: "BO", name: "bo", widget: "text"}
+          - {label: "PB", name: "pb", widget: "text"}
+          - {label: "BD", name: "bd", widget: "text"}
+          - {label: "Significant News", name: "news", widget: "text"}
+      - label: "Tuesday"
+        name: "tuesday"
+        widget: "object"
+        fields:
+          - {label: "Date", name: "date", widget: "string", default: "2025-04-29"}
+          - {label: "EP", name: "ep", widget: "text"}
+          - {label: "BO", name: "bo", widget: "text"}
+          - {label: "PB", name: "pb", widget: "text"}
+          - {label: "BD", name: "bd", widget: "text"}
+          - {label: "Significant News", name: "news", widget: "text"}
+      # Add similar blocks for Wednesday, Thursday, Friday
+      - label: "Best Opportunities"
+        name: "best_opportunities"
+        widget: "object"
+        fields:
+          - {label: "EP", name: "ep", widget: "text"}
+          - {label: "BO", name: "bo", widget: "text"}
+          - {label: "PB", name: "pb", widget: "text"}
+          - {label: "BD", name: "bd", widget: "text"}
+      - {label: "Ideal Tactics", name: "ideal_tactics", widget: "text"}
+      - {label: "My Trading", name: "my_trading", widget: "text"}
+      - {label: "Next Week Plan", name: "next_week_plan", widget: "text"}
