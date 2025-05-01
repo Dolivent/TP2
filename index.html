@@ -1,18 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weekly Notes</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <h1>My Weekly Notes</h1>
-    <div id="note-content">
-        Loading note...
-    </div>
+const noteContentElement = document.getElementById('note-content');
+const githubUsername = "Dolivent";
+const githubRepo = "TP2";
+const noteFilePath = "notes/2025-W18-Example.md";
+const noteUrl = `https://raw.githubusercontent.com/${githubUsername}/${githubRepo}/main/${noteFilePath}`;
 
-    <script src="script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-</body>
-</html>
+fetch(noteUrl)
+  .then(response => {
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    return response.text();
+  })
+  .then(text => {
+    const parsed = frontMatter(text);
+    const data = parsed.attributes; // Get the front matter
+    let html = `
+      <h1>${data.week} week of ${data.monday.date}</h1>
+      <p>${data.summary}</p>
+      <h2>Monday ${data.monday.date}</h2>
+      <p>ep: ${data.monday.ep}</p>
+      <p>bo: ${data.monday.bo}</p>
+      <p>pb: ${data.monday.pb}</p>
+      <p>bd: ${data.monday.bd}</p>
+      <p>Significant News: ${data.monday.news}</p>
+      <h2>Tuesday ${data.tuesday.date}</h2>
+      <p>ep: ${data.tuesday.ep}</p>
+      <p>bo: ${data.tuesday.bo}</p>
+      <!-- Add more days and sections similarly -->
+      <h3>Best Opportunities</h3>
+      <p>ep: ${data.best_opportunities.ep}</p>
+      <p>bo: ${data.best_opportunities.bo}</p>
+      <!-- Add other fields -->
+      <p>Ideal Tactics: ${data.ideal_tactics}</p>
+      <p>My Trading: ${data.my_trading}</p>
+      <p>Next Week Plan: ${data.next_week_plan}</p>
+    `;
+    noteContentElement.innerHTML = html;
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    noteContentElement.textContent = `Error loading note: ${error.message}`;
+  });
